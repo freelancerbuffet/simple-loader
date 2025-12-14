@@ -130,20 +130,7 @@ class SimpleLoader {
 
     switch (this.config.type) {
       case 'spinner':
-        const spinner = document.createElement('div');
-        spinner.className = 'spinner';
-        // Ensure the spinner is visible by applying styles directly
-        spinner.style.cssText = `
-          width: var(--loader-size);
-          height: var(--loader-size);
-          border: 4px solid transparent;
-          border-top: 4px solid var(--loader-color);
-          border-right: 4px solid var(--loader-color);
-          border-radius: 50%;
-          animation: spinner-rotate var(--loader-speed) linear infinite;
-          background: transparent;
-        `;
-        content.appendChild(spinner);
+        content.innerHTML = '<div class="spinner"></div>';
         break;
       case 'dots':
         content.innerHTML = `
@@ -237,19 +224,18 @@ class SimpleLoader {
       this.element.style[key] = this.config.customCSS[key];
     });
 
-    // For spinner, apply styles directly to ensure visibility
+    // For spinner, apply direct styles to ensure visibility
     if (this.config.type === 'spinner') {
       const spinner = this.element.querySelector('.spinner');
       if (spinner) {
-        spinner.style.setProperty('--loader-color', this.config.color);
-        spinner.style.setProperty('--loader-size', `${size}px`);
-        spinner.style.setProperty('--loader-speed', speed);
-        // Fallback inline styles
         spinner.style.width = `${size}px`;
         spinner.style.height = `${size}px`;
-        spinner.style.borderTopColor = this.config.color;
-        spinner.style.borderRightColor = this.config.color;
-        spinner.style.animationDuration = speed;
+        spinner.style.border = '4px solid transparent';
+        spinner.style.borderTop = `4px solid ${this.config.color}`;
+        spinner.style.borderRight = `4px solid ${this.config.color}`;
+        spinner.style.borderRadius = '50%';
+        spinner.style.animation = `spinner-rotate ${speed} linear infinite`;
+        spinner.style.background = 'transparent';
       }
     }
   }
