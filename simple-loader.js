@@ -148,15 +148,7 @@ class SimpleLoader {
         content.innerHTML = '<div class="bar"><div class="bar-inner"></div></div>';
         break;
       case 'wave':
-        content.innerHTML = `
-          <div class="wave">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-          </div>
-        `;
+        content.innerHTML = '<div class="wave"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>';
         break;
       case 'bounce':
         content.innerHTML = '<div class="bounce"></div>';
@@ -168,14 +160,7 @@ class SimpleLoader {
         content.innerHTML = '<div class="heartbeat"></div>';
         break;
       case 'progress':
-        content.innerHTML = `
-          <div class="progress-container">
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 0%"></div>
-            </div>
-            <div class="progress-text">0%</div>
-          </div>
-        `;
+        content.innerHTML = '<div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div><div class="progress-text">0%</div></div>';
         break;
       default:
         content.innerHTML = '<div class="spinner"></div>';
