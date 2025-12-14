@@ -33,25 +33,42 @@
   <script src="../simple-loader.js"></script>
   <script>
     function showSpinner() {
-      const loader = new SimpleLoader({ type: 'spinner', color: '#3498db' });
+      const loader = new SimpleLoader({ 
+        type: 'spinner', 
+        color: '#e74c3c',
+        size: 'large',
+        overlay: true
+      });
       loader.show();
       setTimeout(() => loader.hide(), 2000);
     }
 
     function showDots() {
-      const loader = new SimpleLoader({ type: 'dots', color: '#e74c3c' });
+      const loader = new SimpleLoader({ 
+        type: 'dots', 
+        color: '#e74c3c',
+        size: 'large'
+      });
       loader.show();
       setTimeout(() => loader.hide(), 2000);
     }
 
     function showPulse() {
-      const loader = new SimpleLoader({ type: 'pulse', color: '#2ecc71' });
+      const loader = new SimpleLoader({ 
+        type: 'pulse', 
+        color: '#2ecc71',
+        size: 'large'
+      });
       loader.show();
       setTimeout(() => loader.hide(), 2000);
     }
 
     function showBar() {
-      const loader = new SimpleLoader({ type: 'bar', color: '#f39c12' });
+      const loader = new SimpleLoader({ 
+        type: 'bar', 
+        color: '#f39c12',
+        size: 'large'
+      });
       loader.show();
       setTimeout(() => loader.hide(), 2000);
     }
