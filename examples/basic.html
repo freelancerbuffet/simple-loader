@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Loader - Basic Example</title>
+  <link rel="stylesheet" href="../simple-loader.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    h1 { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Basic Loader Example</h1>
+  <p>Click the buttons below to test different loaders:</p>
+  
+  <button onclick="showSpinner()">Show Spinner</button>
+  <button onclick="showDots()">Show Dots</button>
+  <button onclick="showPulse()">Show Pulse</button>
+  <button onclick="showBar()">Show Bar</button>
+
+  <script src="../simple-loader.js"></script>
+  <script>
+    function showSpinner() {
+      const loader = new SimpleLoader({ type: 'spinner', color: '#3498db' });
+      loader.show();
+      setTimeout(() => loader.hide(), 2000);
+    }
+
+    function showDots() {
+      const loader = new SimpleLoader({ type: 'dots', color: '#e74c3c' });
+      loader.show();
+      setTimeout(() => loader.hide(), 2000);
+    }
+
+    function showPulse() {
+      const loader = new SimpleLoader({ type: 'pulse', color: '#2ecc71' });
+      loader.show();
+      setTimeout(() => loader.hide(), 2000);
+    }
+
+    function showBar() {
+      const loader = new SimpleLoader({ type: 'bar', color: '#f39c12' });
+      loader.show();
+      setTimeout(() => loader.hide(), 2000);
+    }
+  </script>
+</body>
+</html>

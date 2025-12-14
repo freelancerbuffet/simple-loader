@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Loader - API Example</title>
+  <link rel="stylesheet" href="../simple-loader.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .controls {
+      display: grid;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .control-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    label { min-width: 100px; }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover { background: #2980b9; }
+    h1 { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>API Methods Example</h1>
+  <p>Explore the SimpleLoader API methods:</p>
+  
+  <div class="controls">
+    <div class="control-group">
+      <label>Color:</label>
+      <input type="color" id="colorPicker" value="#3498db">
+      <button onclick="updateColor()">Update Color</button>
+    </div>
+    
+    <div class="control-group">
+      <label>Size:</label>
+      <select id="sizePicker">
+        <option value="small">Small</option>
+        <option value="medium" selected>Medium</option>
+        <option value="large">Large</option>
+      </select>
+      <button onclick="updateSize()">Update Size</button>
+    </div>
+    
+    <div class="control-group">
+      <label>Speed:</label>
+      <select id="speedPicker">
+        <option value="slow">Slow</option>
+        <option value="normal" selected>Normal</option>
+        <option value="fast">Fast</option>
+      </select>
+      <button onclick="updateSpeed()">Update Speed</button>
+    </div>
+  </div>
+
+  <div>
+    <button onclick="loader.show()">Show</button>
+    <button onclick="loader.hide()">Hide</button>
+    <button onclick="loader.toggle()">Toggle</button>
+    <button onclick="destroyLoader()" style="background: #e74c3c;">Destroy</button>
+    <button onclick="createLoader()" style="background: #2ecc71;">Create New</button>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <h3>Console Output:</h3>
+    <div id="console" style="background: #f5f5f5; padding: 10px; min-height: 100px; border-radius: 5px;"></div>
+  </div>
+
+  <script src="../simple-loader.js"></script>
+  <script>
+    let loader = new SimpleLoader({
+      type: 'spinner',
+      color: '#3498db',
+      size: 'medium',
+      speed: 'normal'
+    });
+
+    // Event listeners
+    loader.on('show', () => log('Loader shown'));
+    loader.on('hide', () => log('Loader hidden'));
+    loader.on('update', (config) => log('Loader updated', config));
+
+    function updateColor() {
+      const color = document.getElementById('colorPicker').value;
+      loader.setColor(color);
+      log(`Color changed to ${color}`);
+    }
+
+    function updateSize() {
+      const size = document.getElementById('sizePicker').value;
+      loader.setSize(size);
+      log(`Size changed to ${size}`);
+    }
+
+    function updateSpeed() {
+      const speed = document.getElementById('speedPicker').value;
+      loader.setSpeed(speed);
+      log(`Speed changed to ${speed}`);
+    }
+
+    function destroyLoader() {
+      loader.destroy();
+      log('Loader destroyed');
+    }
+
+    function createLoader() {
+      loader = new SimpleLoader({
+        type: 'pulse',
+        color: '#2ecc71',
+        size: 'medium',
+        speed: 'normal'
+      });
+      loader.on('show', () => log('Loader shown'));
+      loader.on('hide', () => log('Loader hidden'));
+      log('New loader created');
+    }
+
+    function log(message, data) {
+      const consoleEl = document.getElementById('console');
+      const time = new Date().toLocaleTimeString();
+      const logEntry = `[${time}] ${message}`;
+      const div = document.createElement('div');
+      div.textContent = data ? `${logEntry}: ${JSON.stringify(data)}` : logEntry;
+      consoleEl.appendChild(div);
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+  </script>
+</body>
+</html>

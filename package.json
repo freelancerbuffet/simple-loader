@@ -1,0 +1,32 @@
+{
+  "name": "simple-loader",
+  "version": "1.0.0",
+  "description": "A lightweight, mobile-first loading component designed for speed, simplicity, and seamless integration into any project",
+  "main": "simple-loader.js",
+  "style": "simple-loader.css",
+  "files": [
+    "simple-loader.js",
+    "simple-loader.css",
+    "index.html"
+  ],
+  "keywords": [
+    "loader",
+    "loading",
+    "spinner",
+    "mobile-first",
+    "lightweight",
+    "vanilla-js",
+    "ui-component",
+    "progress-indicator"
+  ],
+  "author": "Freelancer Buffet",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freelancerbuffet/simple-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/freelancerbuffet/simple-loader/issues"
+  },
+  "homepage": "https://github.com/freelancerbuffet/simple-loader#readme"
+}
