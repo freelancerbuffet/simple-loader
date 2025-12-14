@@ -91,7 +91,7 @@ const options = {
   // Visual
   color: '#3498db',        // Primary color
   size: 'medium',          // 'small' | 'medium' | 'large' | number (px)
-  type: 'spinner',         // 'spinner' | 'dots' | 'pulse' | 'bar'
+  type: 'spinner',         // Loader type (see below for all types)
   
   // Behavior
   overlay: true,           // Show background overlay
@@ -100,6 +100,9 @@ const options = {
   // Animation
   speed: 'normal',         // 'slow' | 'normal' | 'fast'
   
+  // Theme
+  theme: null,             // 'material' | 'ios' | 'minimal' | 'dark' | 'success' | 'error' | 'warning'
+  
   // Accessibility
   ariaLabel: 'Loading...',
   
@@ -107,6 +110,54 @@ const options = {
   className: '',           // Additional CSS classes
   customCSS: {}           // Inline styles
 };
+```
+
+### Loader Types
+
+**Original Loaders:**
+- `'spinner'` - Classic rotating circle
+- `'dots'` - Three bouncing dots
+- `'pulse'` - Pulsating circle with ripples
+- `'bar'` - Sliding horizontal bar
+
+**New Loaders:**
+- `'wave'` - Wave-like animation with bars
+- `'bounce'` - Bouncing ball animation
+- `'ring'` - Dual rotating rings
+- `'heartbeat'` - Heartbeat pulse effect
+- `'progress'` - Progress bar with percentage display
+
+### Theme Presets
+
+Use pre-configured themes for common use cases:
+
+```javascript
+// Material Design theme
+const loader = new SimpleLoader({ theme: 'material' });
+
+// iOS style theme
+const loader = new SimpleLoader({ theme: 'ios' });
+
+// Minimal theme
+const loader = new SimpleLoader({ theme: 'minimal' });
+
+// Dark mode theme
+const loader = new SimpleLoader({ theme: 'dark' });
+
+// Success state
+const loader = new SimpleLoader({ theme: 'success' });
+
+// Error state
+const loader = new SimpleLoader({ theme: 'error' });
+
+// Warning state
+const loader = new SimpleLoader({ theme: 'warning' });
+
+// Override theme properties
+const loader = new SimpleLoader({ 
+  theme: 'material',
+  size: 'large'  // Override default theme size
+});
 ```
 
 ### Styling Examples
@@ -164,6 +215,9 @@ loader.toggle();
 
 // Update configuration
 loader.update({ color: '#3498db', size: 'large' });
+
+// Set progress (for progress type only)
+loader.setProgress(75); // Set to 75%
 
 // Destroy instance
 loader.destroy();
@@ -270,13 +324,12 @@ Check out our [examples directory](./examples) for:
 
 ## 🗺️ Roadmap
 
-- [ ] Initial release with core functionality
-- [ ] Additional loader styles (wave, bounce, etc.)
-- [ ] Progress bar variant
+- [x] Initial release with core functionality
+- [x] Additional loader styles (wave, bounce, ring, heartbeat)
+- [x] Progress bar variant with percentage display
+- [x] Theme presets (material, iOS, minimal, dark, success, error, warning)
 - [ ] React/Vue/Angular component packages
 - [ ] SVG-based loaders
-- [ ] Theme presets (material, iOS, etc.)
-- [ ] Animation customization API
 - [ ] Performance monitoring tools
 
 ## 📄 License

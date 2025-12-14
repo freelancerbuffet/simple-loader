@@ -6,6 +6,11 @@
 
 class SimpleLoader {
   constructor(options = {}) {
+    // Apply theme preset if specified
+    if (options.theme) {
+      options = this._applyTheme(options.theme, options);
+    }
+
     this.config = {
       color: options.color || '#3498db',
       size: options.size || 'medium',
@@ -16,15 +21,65 @@ class SimpleLoader {
       ariaLabel: options.ariaLabel || 'Loading...',
       className: options.className || '',
       customCSS: options.customCSS || {},
-      container: options.container || document.body
+      container: options.container || document.body,
+      theme: options.theme || null
     };
 
     this.element = null;
     this.overlay = null;
     this.isVisible = false;
     this.listeners = {};
+    this.progressInterval = null;
+    this.progress = 0;
 
     this._init();
+  }
+
+  _applyTheme(themeName, options) {
+    const themes = {
+      material: {
+        color: '#2196F3',
+        type: 'spinner',
+        speed: 'normal',
+        overlayColor: 'rgba(0, 0, 0, 0.6)'
+      },
+      ios: {
+        color: '#007AFF',
+        type: 'spinner',
+        speed: 'fast',
+        overlayColor: 'rgba(255, 255, 255, 0.9)'
+      },
+      minimal: {
+        color: '#000000',
+        type: 'dots',
+        speed: 'slow',
+        overlay: false
+      },
+      dark: {
+        color: '#ffffff',
+        type: 'pulse',
+        speed: 'normal',
+        overlayColor: 'rgba(0, 0, 0, 0.9)'
+      },
+      success: {
+        color: '#4CAF50',
+        type: 'pulse',
+        speed: 'fast'
+      },
+      error: {
+        color: '#F44336',
+        type: 'heartbeat',
+        speed: 'fast'
+      },
+      warning: {
+        color: '#FF9800',
+        type: 'wave',
+        speed: 'normal'
+      }
+    };
+
+    const theme = themes[themeName] || {};
+    return { ...theme, ...options };
   }
 
   _init() {
@@ -92,11 +147,71 @@ class SimpleLoader {
       case 'bar':
         content.innerHTML = '<div class="bar"><div class="bar-inner"></div></div>';
         break;
+      case 'wave':
+        content.innerHTML = `
+          <div class="wave">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+        `;
+        break;
+      case 'bounce':
+        content.innerHTML = '<div class="bounce"></div>';
+        break;
+      case 'ring':
+        content.innerHTML = '<div class="ring"></div>';
+        break;
+      case 'heartbeat':
+        content.innerHTML = '<div class="heartbeat"></div>';
+        break;
+      case 'progress':
+        content.innerHTML = `
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0%</div>
+          </div>
+        `;
+        break;
       default:
         content.innerHTML = '<div class="spinner"></div>';
     }
 
     this.element.appendChild(content);
+    
+    // Initialize progress if type is progress
+    if (this.config.type === 'progress') {
+      this.progress = 0;
+      this._startProgressAnimation();
+    }
+  }
+
+  _startProgressAnimation() {
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+    }
+    
+    this.progressInterval = setInterval(() => {
+      if (this.isVisible && this.config.type === 'progress') {
+        this.progress = (this.progress + 1) % 101;
+        this.setProgress(this.progress);
+      }
+    }, 50);
+  }
+
+  setProgress(percentage) {
+    if (this.config.type !== 'progress') return;
+    
+    percentage = Math.max(0, Math.min(100, percentage));
+    const fill = this.element.querySelector('.progress-fill');
+    const text = this.element.querySelector('.progress-text');
+    
+    if (fill) fill.style.width = `${percentage}%`;
+    if (text) text.textContent = `${Math.round(percentage)}%`;
   }
 
   _applyStyles() {
@@ -216,6 +331,10 @@ class SimpleLoader {
 
   destroy() {
     this.hide();
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+      this.progressInterval = null;
+    }
     if (this.element && this.element.parentNode) {
       this.element.parentNode.removeChild(this.element);
     }
