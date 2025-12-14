@@ -26,10 +26,15 @@ Copy these two files to your project:
 ```javascript
 // Create a loader
 const loader = new SimpleLoader({
-  type: 'spinner',    // 'spinner', 'dots', 'pulse', or 'bar'
+  type: 'spinner',    // 9 types: 'spinner', 'dots', 'pulse', 'bar', 'wave', 'bounce', 'ring', 'heartbeat', 'progress'
   color: '#3498db',   // Any CSS color
   size: 'medium',     // 'small', 'medium', 'large', or number
   speed: 'normal'     // 'slow', 'normal', or 'fast'
+});
+
+// Or use a theme preset
+const loader = new SimpleLoader({
+  theme: 'material'   // 'material', 'ios', 'minimal', 'dark', 'success', 'error', 'warning'
 });
 
 // Show it
@@ -93,7 +98,7 @@ async function fetchData() {
 ### File Upload
 ```javascript
 const loader = new SimpleLoader({ 
-  type: 'bar',
+  type: 'progress',  // Use progress type for uploads
   color: '#f39c12'
 });
 
@@ -111,14 +116,74 @@ document.querySelector('#fileInput').addEventListener('change', async (e) => {
       method: 'POST',
       body: formData
     });
-    console.log('Upload complete!');
-  } finally {
+    loader.setProgress(100); // Show completion
+    setTimeout(() => loader.hide(), 500);
+  } catch (error) {
     loader.hide();
   }
 });
 ```
 
+### Progress Tracking
+```javascript
+const loader = new SimpleLoader({ 
+  type: 'progress',
+  color: '#3498db'
+});
+
+loader.show();
+
+// Manually update progress
+let progress = 0;
+const interval = setInterval(() => {
+  progress += 10;
+  loader.setProgress(progress);
+  
+  if (progress >= 100) {
+    clearInterval(interval);
+    setTimeout(() => loader.hide(), 500);
+  }
+}, 200);
+```
+
 ## 🔧 Customization Examples
+
+### Use Theme Presets
+```javascript
+// Success message
+const successLoader = new SimpleLoader({ theme: 'success' });
+successLoader.show();
+
+// Error message
+const errorLoader = new SimpleLoader({ theme: 'error' });
+
+// Material Design
+const materialLoader = new SimpleLoader({ theme: 'material' });
+
+// iOS style
+const iosLoader = new SimpleLoader({ theme: 'ios' });
+
+// Minimal dark theme
+const minimalLoader = new SimpleLoader({ theme: 'minimal' });
+```
+
+### Try New Loader Types
+```javascript
+// Wave animation
+new SimpleLoader({ type: 'wave', color: '#9b59b6' });
+
+// Bouncing ball
+new SimpleLoader({ type: 'bounce', color: '#e67e22' });
+
+// Dual rotating ring
+new SimpleLoader({ type: 'ring', color: '#1abc9c' });
+
+// Heartbeat effect
+new SimpleLoader({ type: 'heartbeat', color: '#e91e63' });
+
+// Progress with percentage
+new SimpleLoader({ type: 'progress', color: '#3498db' });
+```
 
 ### Change Colors
 ```javascript

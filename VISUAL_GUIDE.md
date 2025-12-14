@@ -20,42 +20,86 @@ simple-loader/
 
 ## 🚀 Features Implemented
 
-### 1. Four Loader Types
+### 1. Nine Loader Types
 
-#### Spinner
+#### Original Loaders
+
+**Spinner**
 - Classic rotating circle loader
 - Smooth CSS-based rotation
 - Customizable border colors
 
-#### Dots
+**Dots**
 - Three animated dots
 - Bouncing animation with staggered timing
 - Perfect for minimal design
 
-#### Pulse
+**Pulse**
 - Pulsating circle with ripple effects
 - Dual ripple waves for visual depth
 - Great for indicating active processes
 
-#### Bar
+**Bar**
 - Horizontal progress bar style
 - Sliding animation with glow effect
 - Ideal for linear loading sequences
 
-### 2. Customization Options
+#### New Loaders
+
+**Wave**
+- Five vertical bars with wave-like animation
+- Staggered bouncing effect
+- Modern and eye-catching
+
+**Bounce**
+- Single bouncing ball animation
+- Natural physics-based movement
+- Playful and engaging
+
+**Ring**
+- Dual rotating rings
+- Counter-rotating animation
+- Elegant and sophisticated
+
+**Heartbeat**
+- Pulsating heartbeat effect
+- Double-pulse animation
+- Perfect for health/fitness apps
+
+**Progress**
+- Progress bar with percentage display
+- Manual control via setProgress() API
+- Ideal for upload/download tracking
+
+### 2. Theme Presets
+
+Seven pre-configured themes:
+- **Material**: Material Design blue (#2196F3)
+- **iOS**: Apple iOS style blue (#007AFF)
+- **Minimal**: Clean black dots on transparent
+- **Dark**: White on dark overlay
+- **Success**: Green pulse (#4CAF50)
+- **Error**: Red heartbeat (#F44336)
+- **Warning**: Orange wave (#FF9800)
+
+### 3. Customization Options
 
 All loaders support:
 - **Color**: Any hex, RGB, or named color
 - **Size**: Small (32px), Medium (48px), Large (64px), or custom pixel values
 - **Speed**: Slow (1.5s), Normal (1s), Fast (0.6s)
 - **Overlay**: Optional background overlay with blur effect
+- **Theme**: Quick preset application
 - **Custom CSS**: Additional inline styles
 
-### 3. Simple API
+### 4. Enhanced API
 
 ```javascript
-// Create
+// Create with type
 const loader = new SimpleLoader({ type: 'spinner', color: '#3498db' });
+
+// Or use theme preset
+const loader = new SimpleLoader({ theme: 'material' });
 
 // Control
 loader.show();      // Display loader
@@ -67,6 +111,9 @@ loader.setColor('#e74c3c');
 loader.setSize('large');
 loader.setSpeed('fast');
 loader.update({ type: 'pulse', color: '#2ecc71' });
+
+// Progress control (progress type only)
+loader.setProgress(75);  // Set to 75%
 
 // Events
 loader.on('show', () => console.log('Shown'));
